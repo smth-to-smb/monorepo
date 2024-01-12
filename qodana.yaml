@@ -1,1 +1,2 @@
-bootstrap: cp qodana-backend.yaml qodana.yaml
+profile:
+    name: qodana.starter
