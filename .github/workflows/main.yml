@@ -1,0 +1,38 @@
+name: Qodana
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+jobs:
+  qodana-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 'Use qodana-backend config'
+        run: cp qodana-backend.yaml qodana.yaml
+
+      - name: 'Qodana Backend'
+        uses: JetBrains/qodana-action@v2023.3
+        with:
+          args: |
+            --source-directory,backend,
+            --baseline,qodana-backend.sarif.json
+          artifact-name: qodana-backend
+  qodana-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 'Use qodana-frontend config'
+        run: cp qodana-frontend.yaml qodana.yaml
+
+      - name: 'Qodana Frontend'
+        uses: JetBrains/qodana-action@v2023.3
+        with:
+          args: |
+            --source-directory,frontend,
+            --baseline,qodana-frontend.sarif.json
+          artifact-name: qodana-frontend
