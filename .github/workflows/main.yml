@@ -1,4 +1,4 @@
-name: Qoddana
+name: Qodana
 on:
   workflow_dispatch:
   pull_request:
@@ -15,12 +15,12 @@ jobs:
 
       - name: 'Qodana Backend'
         uses: JetBrains/qodana-action@v2023.3
-        env:
-            QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_BACKEND }}
         with:
           args: |
             --source-directory,backend,
           artifact-name: qodana-backend
+        env:
+            QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_BACKEND }}
   qodana-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -32,9 +32,9 @@ jobs:
 
       - name: 'Qodana Frontend'
         uses: JetBrains/qodana-action@v2023.3
-        env:
-            QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_FRONTEND }}
         with:
           args: |
             --source-directory,frontend,
           artifact-name: qodana-frontend
+        env:
+            QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_FRONTEND }}
